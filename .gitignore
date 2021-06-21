@@ -1,0 +1,12 @@
+node_modules/
+gb-pages/
+docs/.vuepress/dist/
+.vscode/
+.idea/
+.DS_Store
+
+Print.js/
+documents/
+vue-vben-admin/
+vuepress-theme-vdoing/
+znote/
