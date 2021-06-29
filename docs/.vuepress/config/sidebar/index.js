@@ -57,6 +57,7 @@ module.exports = {
             children: [
                 "React/setup-ts-with-react",
 				"React/function-hooks",
+				"React/class-component",
 				"React/type-component-props",
             ]
         },

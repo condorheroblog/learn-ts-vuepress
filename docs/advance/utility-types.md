@@ -9,8 +9,7 @@ date: 2021-06-02 01:25:39
 
 我们知道在 TypeScript 中**一切皆是类型**，而 TypeScript 除了能够创建新类型之外，它还提供了一些工具类型实现转换现有类型的能力，这些工具类型是 TypeScript 内置的，同时它们全局可用。
 
-
-### Partial<Type>
+## `Partial<Type>`
 
 Partial 会创建一个新的类型同时它内部所有属性都变成可选的。
 
@@ -66,7 +65,7 @@ type Partial<T> = {
 };
 ```
 
-## Required<Type>
+## `Required<Type>`
 
 Required 是 Partial 的反面，Required 创造一个新类型，同时内部所有的属性都是必须的。
 
@@ -111,9 +110,9 @@ type Required<T> = {
 };
 ```
 
-## Readonly<Type>
+## `Readonly<Type>`
 
-Readonly<T> 创建一个新类型，同时所有属性都变为只读属性，这也就意味着这些属性不能被重新赋值。
+`Readonly<T>` 创建一个新类型，同时所有属性都变为只读属性，这也就意味着这些属性不能被重新赋值。
 
 ```ts
 type Type = { x: string, y: string };
@@ -175,7 +174,7 @@ type NonReadonly<T> = {
 type NonReadonlyPos = NonReadonly<position>;
 ```
 
-## Record<Keys, Type>
+## `Record<Keys, Type>`
 
 `Record<Keys, Type>` 创造一个新类型，同时将 Keys 中所有的属性的值的类型转化为 T 类型。
 
@@ -217,7 +216,7 @@ type Record<K extends keyof any, T> = {
 type unionKeyType = keyof any;
 ```
 
-## Exclude<Type, ExcludedUnion>
+## `Exclude<Type, ExcludedUnion>`
 
 Exclude 通过排除类型中可分配给 ExcludedUnion 的所有联合成员来创建新类型：
 
@@ -258,7 +257,7 @@ const personalNumberProp = getUserProperty(user, "personalNumber");
 type Exclude<T, U> = T extends U ? never : T;
 ```
 
-## Extract<Type, Union>
+## `Extract<Type, Union>`
 
 Extract 是 Exclude 的反面。
 
@@ -295,7 +294,7 @@ type Extract<T, U> = T extends U ? T : never;
 ```
 
 
-## Pick<Type, Keys>
+## `Pick<Type, Keys>`
 
 Pick 的作用是将 Type 类型中的 Keys 类型提取出来，创建为一个新类型。
 
@@ -336,7 +335,7 @@ type Pick<T, K extends keyof T> = {
 };
 ```
 
-## Omit<Type, Keys>
+## `Omit<Type, Keys>`
 
 Omit 从 Type 的所有属性中，移除 Keys 键，用剩下的键来创建新类型。
 
@@ -401,7 +400,7 @@ type noAge = Remove<IPerson, "age">; // yes type noAge = { name: string; }
 type noRandomKey = Remove<IPerson, "灰机">; // no
 ```
 
-## NonNullable<Type>
+## `NonNullable<Type>`
 
 NonNullable 通过从类型中排除 null 和 undefined 来创建新类型。
 
@@ -414,7 +413,7 @@ type Type = string | null | undefined;
 type NonNullableType = NonNullable<Type>;
 ```
 
-## Parameters<Type>
+## `Parameters<Type>`
 
 参数从函数类型 Type 的参数中使用的类型构造元组类型：
 
@@ -473,7 +472,7 @@ const user: Parameters<typeof saveUser>[0] = {
 type Parameters<T extends (...args: any) => any> = T extends (...args: infer P) => any ? P : never;
 ```
 
-## ConstructorParameters<Type>
+## `ConstructorParameters<Type>`
 
 ConstructorParameters 根据构造函数的类型构造元组或数组类型。
 
@@ -519,7 +518,7 @@ const params: ConstructorParameters<typeof UserManager>[0] = {
 type ConstructorParameters<T extends new (...args: any) => any> = T extends new (...args: infer P) => any ? P : never;
 ```
 
-## ReturnType<Type>
+## `ReturnType<Type>`
 
 ReturnType 构造函数Type的返回类型的类型：
 
@@ -557,7 +556,7 @@ const user: User = {
 type ReturnType<T extends (...args: any) => any> = T extends (...args: any) => infer R ? R : any;
 ```
 
-## InstanceType<Type>
+## `InstanceType<Type>`
 
 InstanceType构建一个类型包括实例类型的构造函数的类型。
 
@@ -603,7 +602,7 @@ const user2: UserManager = {
 type InstanceType<T extends new (...args: any) => any> = T extends new (...args: any) => infer R ? R : any;
 ```
 
-## ThisParameterType<Type>
+## `ThisParameterType<Type>`
 
 提取函数 this 的类型，若函数类型并没有此参数，则提取为 unknown 类型。
 

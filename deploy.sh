@@ -32,12 +32,12 @@ git push -f git@github.com:condorheroblog/learn-ts-vuepress.git master:gh-pages
 cd ..
 cd ..
 cd ..
-git init
-git config --local user.name CondoHero
-git config --local user.email love2xinwei@gmail.com
+# git init
+# git config --local user.name CondoHero
+# git config --local user.email love2xinwei@gmail.com
 git add .
 # 每次提交需要改动这个信息
-git commit -m '初始化项目' 
+git commit -m '增加类组件文章' 
 git push -f git@github.com:condorheroblog/learn-ts-vuepress.git master:master
 
 cd -

@@ -1,9 +1,9 @@
 ---
-title: "函数式组件"
+title: "TS + 函数式组件"
 date: 2021-05-20
 ---
 
-# 函数式组件
+# TS + 函数式组件
 
 为什么把函数式组件放在类组件之前学习呢？这是因为函数式组件足够的灵活，而类组件笨重和过于奇怪的语法，已经让我在项目中完全抛弃了。
 
@@ -240,7 +240,6 @@ function MyComponent() {
     return <div ref={ref1}> etc </div>;
 }
 ```
-
 ## Custom Hooks
 
 自定义 Hook 和普通函数几乎没啥区别，唯一需要注意的是自定义 Hook 的返回值如果是数组类型，TS 会自动推导为 Union 类型，而我们实际需要的是数组里里每一项的具体类型，需要手动添加 **const 断言**进行处理，或直接声明返回字面量数组类型。
@@ -269,21 +268,15 @@ export function useLoading(): [ boolean, (aPromise: Promise<any>) => Promise<any
 }
 ```
 
+如果上面你都看会了来看个更牛的——useReducer。
 ## useReducer
 
-```ts
- type ReducerState<R extends Reducer<any, any>> = R extends Reducer<infer S, any> ? S : never;
-type Reducer<S, A> = (prevState: S, action: A) => S;
-function useReducer<R extends Reducer<any, any>>(
-    reducer: R,
-    initialState: ReducerState<R>,
-    initializer?: undefined
-): [ReducerState<R>, Dispatch<ReducerAction<R>>];
-```
+先来看下 Reducer 在 TypeScript 中的用法：
 
 ```ts{7}
 const initialState = { count: 0 };
 
+// 注意⚠️
 type ACTIONTYPE =
 	| { type: "increment"; payload: number }
 	| { type: "decrement"; payload: string };
@@ -313,18 +306,27 @@ function Counter() {
 		</>
 	);
 }
-
 ```
 
-## useImperativeHandle
+源码解析：
 
-https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/hooks#useeffect
-
+```ts
+type ReducerState<R extends Reducer<any, any>> = R extends Reducer<infer S, any> ? S : never;
+type Reducer<S, A> = (prevState: S, action: A) => S;
+function useReducer<R extends Reducer<any, any>>(
+    reducer: R,
+    initialState: ReducerState<R>,
+    initializer?: undefined
+): [ReducerState<R>, Dispatch<ReducerAction<R>>];
+```
 
 ### 使用 TS 时我还需要使用 React.PropTypes 吗？
-### 什么时候使用 interface 声明，什么时候使用 type 别名?
+
+不需要，因为 PropTypes 是在 JS 弱类型环境下 React 给函数组件强加的一种类型检查，现在我们用 TS 来做类型检查，自然 PropTypes 就没用了。
 
 # 参考
+
+React 的 API 还是不少的，上面只是做了一个抛砖引玉，更多你可以参考着下面链接的教程来学习。
 
 - [react-typescript-cheatsheet](https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/default_props/)
 - [static-type-checking](https://reactjs.org/docs/static-type-checking.html#typescript)
